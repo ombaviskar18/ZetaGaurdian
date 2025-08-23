@@ -1,0 +1,39 @@
+.send-message-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+}
+
+.send-message-header {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.send-message-content {
+  padding: 2rem 0;
+}
+
+/* Override existing styles to match new theme */
+.main-container {
+  background: transparent;
+}
+
+.content-container {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 16px;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.content-container-inner-header h1 {
+  background: linear-gradient(45deg, #3b82f6, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.highlight {
+  color: #3b82f6;
+  font-weight: 600;
+}
