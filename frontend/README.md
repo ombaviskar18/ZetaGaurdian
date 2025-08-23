@@ -1,69 +1,145 @@
-# React + TypeScript + Vite
+# 🎨 ZetaGuardian Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <img src="public/logos/logo.png" alt="ZetaGuardian Logo" width="80" height="80">
+  
+  <h3>Modern React Frontend for Decentralized Security</h3>
+  
+  [![React](https://img.shields.io/badge/React-18+-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178C6?style=for-the-badge&logo=typescript)](https://typescriptlang.org)
+  [![Vite](https://img.shields.io/badge/Vite-5+-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev)
+</div>
 
-Currently, two official plugins are available:
+## 🚀 Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Access Application
 ```
+http://localhost:5173
+```
+
+## 📁 Project Structure
+
+```
+frontend/
+├── public/
+│   ├── logos/              # Brand assets (logo.png, herovideo.mp4)
+│   └── fonts/              # Custom fonts
+├── src/
+│   ├── components/         # UI components (Header, Button, Modal)
+│   ├── pages/              # Application pages
+│   │   ├── HomePage.tsx
+│   │   ├── ContractAnalysisPage.tsx
+│   │   ├── TokenomicsPage.tsx
+│   │   ├── SocialAnalysisPage.tsx
+│   │   ├── MonitoringPage.tsx
+│   │   └── SendMessagePage.tsx
+│   ├── hooks/              # Custom React hooks
+│   ├── context/            # React context providers
+│   ├── utils/              # Utility functions
+│   ├── constants/          # App constants
+│   └── types/              # TypeScript definitions
+├── App.tsx                 # Main app component
+└── main.tsx               # Entry point
+```
+
+## 🎨 Features
+
+### 🏠 Homepage
+- Hero section with animated background
+- Feature cards with hover effects
+- Statistics and workflow sections
+- Professional footer
+
+### 🔍 Contract Analysis
+- Smart contract security scanning
+- Risk score visualization
+- Detailed vulnerability reports
+- Downloadable analysis reports
+
+### 📈 Additional Pages
+- **Tokenomics**: Multi-chain token analysis
+- **Social Forensics**: Community sentiment analysis
+- **Monitoring**: Real-time threat detection
+- **Send Message**: Cross-chain messaging
+
+## 🎭 Design System
+
+### Colors
+```css
+--primary: #00d4ff;        /* Bright cyan */
+--secondary: #0077b6;      /* Deep blue */
+--background: linear-gradient(to bottom, #0f172a, #1e293b, #0f172a);
+```
+
+### Components
+- Glass morphism effects
+- Gradient text animations
+- Smooth hover transitions
+- Responsive grid layouts
+
+## 🔗 Technology Stack
+
+- **React 18+** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **Framer Motion** - Animations
+- **React Router** - Navigation
+- **Lucide React** - Icons
+
+## 🌐 Web3 Integration
+
+- Wallet connection (MetaMask, WalletConnect)
+- Multi-chain support
+- Transaction handling
+- Chain switching
+
+## 📱 Responsive Design
+
+- Mobile-first approach
+- Tablet and desktop optimized
+- Flexible grid systems
+- Touch-friendly interactions
+
+## 🚀 Build Commands
+
+```bash
+# Development
+npm run dev
+
+# Production build
+npm run build
+
+# Preview build
+npm run preview
+
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Submit pull request
+
+## 📄 License
+
+MIT License - see [LICENSE](../LICENSE) file for details.
+
+---
+
+<div align="center">
+  <p><strong>Built with ❤️ using React + TypeScript + Vite</strong></p>
+  <p>Part of the ZetaGuardian Security Suite</p>
+</div>
