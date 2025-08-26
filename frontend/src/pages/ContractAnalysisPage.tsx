@@ -89,58 +89,56 @@ export function ContractAnalysisPage() {
       {/* Hero Section */}
       <section className="analysis-hero">
         <div className="analysis-hero-container">
-          <div className="analysis-hero-content">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="analysis-hero-badge"
-            >
-              <Shield className="hero-badge-icon" />
-              <span>AI-Powered Security Analysis</span>
-            </motion.div>
-            
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="analysis-hero-title"
-            >
-              Smart Contract
-              <span className="title-line-2"> Risk Analysis</span>
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="analysis-hero-description"
-            >
-              Comprehensive security evaluation powered by ZetaChain's cross-chain capabilities and advanced AI analysis. 
-              Detect vulnerabilities, honeypots, and malicious patterns before you invest.
-            </motion.p>
+          <div className="analysis-hero-grid">
+            <div className="analysis-hero-content">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="analysis-hero-badge"
+              >
+                <Shield className="hero-badge-icon" />
+                <span>AI-Powered Security Analysis</span>
+              </motion.div>
+              
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="analysis-hero-title"
+              >
+                Smart Contract
+                <span className="title-line-2"> Risk Analysis</span>
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="analysis-hero-description"
+              >
+                Comprehensive security evaluation powered by ZetaChain's cross-chain capabilities and advanced AI analysis. 
+                Detect vulnerabilities, honeypots, and malicious patterns before you invest.
+              </motion.p>
+
+            </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="analysis-features-grid"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="analysis-hero-video-container"
             >
-              <div className="analysis-feature-item">
-                <Lock className="feature-icon" />
-                <span>Honeypot Detection</span>
-              </div>
-              <div className="analysis-feature-item">
-                <Eye className="feature-icon" />
-                <span>Owner Privileges</span>
-              </div>
-              <div className="analysis-feature-item">
-                <Target className="feature-icon" />
-                <span>Rugpull Analysis</span>
-              </div>
-              <div className="analysis-feature-item">
-                <Activity className="feature-icon" />
-                <span>Liquidity Checks</span>
+              <div className="analysis-video-card">
+                <video
+                  className="analysis-hero-video"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                >
+                  <source src="/logos/contractsearch.mp4" type="video/mp4" />
+                </video>
               </div>
             </motion.div>
           </div>
@@ -171,7 +169,6 @@ export function ContractAnalysisPage() {
                 <div className="scanner-form">
                   <div className="input-row">
                     <div className="input-checkbox">
-                      <input type="checkbox" id="terms" className="checkbox-input" defaultChecked />
                       <label htmlFor="terms" className="checkbox-label"></label>
                     </div>
                     <div className="input-field-container">

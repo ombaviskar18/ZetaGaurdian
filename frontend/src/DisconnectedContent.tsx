@@ -3,7 +3,6 @@ import './DisconnectedContent.css';
 import { ConnectWallet } from './components/ConnectWallet';
 import { IconAnimation } from './components/icons/IconAnimation';
 import { IconZetaChainLogo } from './components/icons/IconZetaChainLogo';
-import { Footer } from './Footer';
 
 export function DisconnectedContent() {
   return (
@@ -18,7 +17,7 @@ export function DisconnectedContent() {
             </div>
           </div>
           <p className="hero-content-description">
-            Connect your EVM wallet and trigger the Universal Hello contract on
+            Connect your EVM wallet and trigger contract on
             ZetaChain testnet from any currently supported EVM chain.
           </p>
           <ConnectWallet />
@@ -27,7 +26,6 @@ export function DisconnectedContent() {
           <IconAnimation />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

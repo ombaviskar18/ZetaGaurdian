@@ -2,7 +2,6 @@ import './ConnectedContent.css';
 
 import { NetworkSelector } from './components/NetworkSelector';
 import type { SupportedChain } from './constants/chains';
-import { Footer } from './Footer';
 import { useSwitchChain } from './hooks/useSwitchChain';
 import { MessageFlowCard } from './MessageFlowCard';
 import type { EIP6963ProviderDetail } from './types/wallet';
@@ -27,10 +26,11 @@ export function ConnectedContent({
       <div className="content-container">
         <div className="content-container-inner">
           <div className="content-container-inner-header">
-            <h1>Say Hello from</h1>
+            <h1>Message with cross chain</h1>
             <NetworkSelector
               selectedChain={supportedChain}
               onNetworkSelect={handleNetworkSelect}
+              placeholder="Base Sepolia"
             />
           </div>
           <p className="content-container-inner-description">
@@ -45,7 +45,6 @@ export function ConnectedContent({
           supportedChain={supportedChain}
         />
       </div>
-      <Footer />
     </div>
   );
 }

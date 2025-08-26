@@ -197,7 +197,7 @@ export const Dropdown = <T,>({
       <button
         className={`dropdown-trigger ${triggerClassName} ${
           disabled ? 'disabled' : ''
-        } ${isOpen ? 'hidden' : ''}`}
+        } ${isOpen ? 'hidden' : ''} ${selectedOption ? 'has-selection' : ''}`}
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         type="button"
