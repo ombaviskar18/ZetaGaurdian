@@ -385,7 +385,7 @@ export function HomePage() {
           {/* Footer Bottom */}
           <div className="footer-bottom">
             <div className="footer-bottom-left">
-              <p className="footer-copyright">© 2025 Copyright ZetaGuardian INC. Powered by ZetaChain. Built with ❤️ for DeFi security.</p>
+              <p className="footer-copyright">© 202 Copyright ZetaGuardian INC. Powered by ZetaChain. Built with ❤️ for DeFi security.</p>
               <div className="footer-legal">
                 <a href="#" className="footer-legal-link">Terms & Conditions</a>
                 <a href="#" className="footer-legal-link">Privacy</a>

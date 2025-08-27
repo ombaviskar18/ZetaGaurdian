@@ -8,15 +8,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  padding: 1rem; /* prevent clipping on small viewports */
+  z-index: 2000; /* ensure above any header */
 }
 
 .modal-content {
   padding: 2rem;
   width: 90%;
-  max-width: 400px;
+  max-width: 420px;
   position: relative;
   border-radius: 16px;
+  max-height: 80vh; /* keep fully visible */
+  overflow-y: auto;
 }
 
 .modal-title {

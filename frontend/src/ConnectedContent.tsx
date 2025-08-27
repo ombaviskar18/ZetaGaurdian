@@ -37,7 +37,7 @@ export function ConnectedContent({
             Make a cross-chain call with a message from{' '}
             {supportedChain?.name || 'a supported network'} to a universal
             contract on ZetaChain that emits a{' '}
-            <span className="highlight">HelloEvent</span>.
+            <span className="highlight">SmartContract</span>
           </p>
         </div>
         <MessageFlowCard

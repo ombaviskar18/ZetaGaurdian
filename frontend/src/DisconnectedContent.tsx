@@ -10,7 +10,7 @@ export function DisconnectedContent() {
       <div className="hero-content-container">
         <div className="hero-content">
           <div className="hero-content-header">
-            <h1 className="hero-content-header-title">Call a Universal App</h1>
+            <h1 className="hero-content-header-title">Send Message</h1>
             <div className="hero-content-header-logo">
               <span className="hero-content-header-logo-text">from </span>
               <IconZetaChainLogo />
