@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Scan, AlertTriangle, CheckCircle, Download, Wallet, Lock, Eye, Target, Activity, Search } from 'lucide-react';
+import { Shield, Scan, AlertTriangle, CheckCircle, Download, Wallet, Search } from 'lucide-react';
 import { useWallet } from '../hooks/useWallet';
 import './ContractAnalysisPage.css';
 

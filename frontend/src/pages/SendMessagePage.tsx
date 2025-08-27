@@ -4,7 +4,7 @@ import { ConnectedContent } from '../ConnectedContent';
 import { SUPPORTED_CHAINS } from '../constants/chains';
 import { DisconnectedContent } from '../DisconnectedContent';
 import { useWallet } from '../hooks/useWallet';
-import { MessageSquare, Zap, Shield, Globe, ArrowRight, CheckCircle, Network, Lock, Clock } from 'lucide-react';
+import { MessageSquare, Zap, Shield, Globe, ArrowRight, Network } from 'lucide-react';
 import './SendMessagePage.css';
 
 export function SendMessagePage() {
@@ -15,14 +15,7 @@ export function SendMessagePage() {
     (chain) => chain.chainId === decimalChainId
   );
 
-  const blockchainLogos = [
-    { name: 'Ethereum', logo: '/logos/ethereum-logo.svg', color: '#627EEA' },
-    { name: 'Base', logo: '/logos/base-logo.svg', color: '#0052FF' },
-    { name: 'BNB', logo: '/logos/bsc-logo.svg', color: '#F3BA2F' },
-    { name: 'Polygon', logo: '/logos/polygon-logo.svg', color: '#8247E5' },
-    { name: 'Arbitrum', logo: '/logos/arbitrum-logo.svg', color: '#28A0F0' },
-    { name: 'Avalanche', logo: '/logos/avalanche-logo.svg', color: '#E84142' }
-  ];
+
 
   const workflowSteps = [
     {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, Scan, AlertTriangle, CheckCircle, Download, Wallet, PieChart, TrendingUp, Users, Lock, Search } from 'lucide-react';
+import { BarChart3, CheckCircle, Download, Wallet,  TrendingUp, Users, Search } from 'lucide-react';
 import { useWallet } from '../hooks/useWallet';
 import './TokenomicsPage.css';
 

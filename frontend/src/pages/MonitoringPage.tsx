@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Scan, AlertTriangle, CheckCircle, Download, Wallet, Play, Pause, Bell, Search, Activity, Shield, TrendingUp } from 'lucide-react';
+import { Zap, AlertTriangle, CheckCircle, Download, Wallet, Play, Pause, Bell, Search, Activity, Shield, TrendingUp } from 'lucide-react';
 import { useWallet } from '../hooks/useWallet';
 import './MonitoringPage.css';
 
