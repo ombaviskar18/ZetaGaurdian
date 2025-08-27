@@ -19,7 +19,7 @@ export function HomePage() {
   const navigate = useNavigate();
   const [heroRef, heroInView] = useInView({ threshold: 0.3, triggerOnce: true });
   const [featuresRef, featuresInView] = useInView({ threshold: 0.2, triggerOnce: true });
-  const [statsRef, statsInView] = useInView({ threshold: 0.3, triggerOnce: true });
+  const [] = useInView({ threshold: 0.3, triggerOnce: true });
   const [howItWorksRef, howItWorksInView] = useInView({ threshold: 0.2, triggerOnce: true });
 
   const features = [
@@ -53,12 +53,7 @@ export function HomePage() {
     }
   ];
 
-  const stats = [
-    { label: 'Scams Detected', value: '12,547+' },
-    { label: 'Users Protected', value: '89,432+' },
-    { label: 'Total Saved', value: '$156M+' },
-    { label: 'Success Rate', value: '97.8%' }
-  ];
+
 
   const workflowSteps = [
     {
