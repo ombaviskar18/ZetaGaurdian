@@ -38,6 +38,17 @@ export const PricingPage = () => {
           <p className="pricing-subtitle">
             Advanced blockchain security and social analysis tools to protect your investments (Coming Soon🔜)
           </p>
+          <div className="faucet-section">
+            <a 
+              href="https://cloud.google.com/application/web3/faucet/zetachain/testnet" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="faucet-button"
+            >
+              <Zap className="faucet-icon" />
+              Get Faucet (for using free plan)
+            </a>
+          </div>
           <div className="pricing-badges">
             <div className="badge">
               <Shield className="badge-icon" />
