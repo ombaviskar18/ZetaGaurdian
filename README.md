@@ -1,266 +1,328 @@
-# 🛡️ ZetaGuardian - Decentralized Cross-Chain Security Agent
+# 🛡️ ZetaGuardian - DeFi Security & Analysis Platform
 
-<div align="center">
-  <img src="frontend/public/logos/logo.png" alt="ZetaGuardian Logo" width="120" height="120">
-  
-  <h3>Your decentralized security deserves a beautiful home</h3>
-  
-  [![ZetaChain](https://img.shields.io/badge/ZetaChain-Universal%20App-blue?style=for-the-badge&logo=ethereum)](https://zetachain.com)
-  [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-  [![React](https://img.shields.io/badge/React-18+-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178C6?style=for-the-badge&logo=typescript)](https://typescriptlang.org)
-</div>
+A comprehensive blockchain security and social analysis platform built on ZetaChain, providing real-time contract analysis, social sentiment tracking, tokenomics insights, and automated monitoring for DeFi investors.
 
-## 🎯 Vision
+![ZetaGuardian](https://img.shields.io/badge/ZetaGuardian-DeFi%20Security-blue)
+![ZetaChain](https://img.shields.io/badge/Built%20on-ZetaChain-purple)
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![Vercel](https://img.shields.io/badge/Deployed-Vercel-black)
 
-**"To become the decentralized cross-chain trust layer where every investor, wallet, and DEX has real-time scam protection, powered by ZetaChain's Universal Smart Contracts and Google Gemini AI intelligence."**
+## 🚀 Features
 
-## ✨ Key Features
+### 🔍 **Contract Analysis**
+- **Smart Contract Security Audit**: Analyze contract bytecode for vulnerabilities
+- **Risk Assessment**: Comprehensive risk scoring and security checks
+- **ABI Analysis**: Detect suspicious functions (owner controls, blacklists, etc.)
+- **AI-Powered Insights**: Get AI recommendations and security scores
+- **Multi-Chain Support**: Ethereum, Base, Polygon, BSC, Avalanche
 
-### 🛡️ 1. Cross-Chain Smart Contract Risk Analysis
-- **ZetaChain Integration**: Universal Smart Contracts fetch contract data across Ethereum, BNB Chain, Polygon, Avalanche, etc.
-- **Security Checks**: Owner privileges, hidden backdoors, honeypot & rugpull functions, liquidity lock/unlock status
-- **AI Layer**: Gemini interprets bytecode summaries → outputs risk score + human-readable explanation
+### 📊 **Social Analysis**
+- **Real-time News Integration**: Google News API for latest crypto updates
+- **Sentiment Analysis**: AI-powered sentiment scoring and trend analysis
+- **SWOT Analysis**: Dynamic strengths, weaknesses, opportunities, threats
+- **Social Media Trends**: Track social sentiment and community engagement
+- **Telegram Bot Integration**: Automated news alerts via @Social_Alertbot
 
-### 📊 2. Cross-Chain Tokenomics Evaluation
-- **Multi-Chain Analysis**: Pull token distribution + balances from multiple chains in one transaction
-- **Risk Assessment**: Whale concentration index, unlimited minting rights, suspicious tax structures
-- **AI Intelligence**: Gemini evaluates tokenomics against known "scam playbooks"
+### 📈 **Tokenomics Analysis**
+- **Market Data**: Real-time price, volume, market cap from CoinGecko
+- **Supply Analysis**: Total supply, circulating supply, token distribution
+- **Whale Tracking**: Monitor large holder movements and concentration
+- **AI Insights**: Intelligent analysis of tokenomics metrics
+- **Portfolio Analysis**: Wallet address analysis with asset breakdown
 
-### 🌐 3. Social & Community Forensics
-- **Data Sources**: Twitter/X API, Telegram groups, Discord servers, Google Cloud BigQuery pipelines
-- **Pattern Detection**: Fake follower spikes, bot-driven engagement, anon teams vs verified founders
-- **Sentiment Analysis**: Gemini-powered fraud potential scoring
+### ⚡ **Real-time Monitoring**
+- **Live Token Tracking**: Monitor any token by symbol or address
+- **Price Alerts**: Real-time price changes and market movements
+- **AI Predictions**: Machine learning-based buy/sell recommendations
+- **Market Metrics**: Volume, liquidity, holder count tracking
+- **Chart Visualization**: Interactive charts for data analysis
 
-### ⚡ 4. Real-Time Protection & Alerts
-- **Instant Analysis**: User scans token → ZetaChain queries → AI processes → Risk dashboard
-- **Bot Integration**: Telegram/Discord alerts with pre-transaction warnings
-- **Community Protection**: Scam leaderboards and threat intelligence sharing
+### 🎨 **User Experience**
+- **Modern UI/UX**: Beautiful, responsive design with dark theme
+- **Print Reports**: Generate PDF reports for analysis results
+- **Mobile Responsive**: Optimized for all device sizes
+- **Real-time Updates**: Live data refresh and notifications
+- **Interactive Charts**: Chart.js and Recharts integration
 
 ## 🏗️ Architecture
 
+### **Frontend (React + Vite)**
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Frontend (React + Vite)                  │
-│  ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐ │
-│  │  Contract       │ │   Tokenomics    │ │    Social       │ │
-│  │  Analysis       │ │   Evaluation    │ │   Forensics     │ │
-│  └─────────────────┘ └─────────────────┘ └─────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────┐
-│              ZetaChain Universal Smart Contracts            │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │           Cross-Chain Data Aggregation                  │ │
-│  │  Ethereum • BNB • Polygon • Avalanche • Arbitrum      │ │
-│  └─────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────┐
-│                 AI Analysis Layer                           │
-│  ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐ │
-│  │  Google Gemini  │ │   Risk Scoring  │ │   Pattern       │ │
-│  │  AI Engine      │ │   Algorithm     │ │   Recognition   │ │
-│  └─────────────────┘ └─────────────────┘ └─────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
+frontend/
+├── src/
+│   ├── components/          # Reusable UI components
+│   ├── pages/              # Main application pages
+│   ├── hooks/              # Custom React hooks
+│   ├── context/            # React context providers
+│   ├── utils/              # Utility functions
+│   └── types/              # TypeScript type definitions
+├── public/                 # Static assets
+└── dist/                   # Build output
 ```
+
+### **Backend (Serverless Functions)**
+```
+api/
+├── index.js               # Main API handler
+├── package.json           # API dependencies
+└── endpoints/
+    ├── /api/inspect       # Contract analysis
+    ├── /api/social/insights # Social analysis
+    ├── /api/token/supply  # Token data
+    └── /api/health        # Health check
+```
+
+### **Smart Contracts (ZetaChain)**
+```
+contracts/
+├── ContractAnalysis.sol   # Contract security analysis
+├── SocialAnalysis.sol     # Social sentiment tracking
+├── Tokenomics.sol         # Tokenomics analysis
+└── Monitoring.sol         # Real-time monitoring
+```
+
+## 🛠️ Technology Stack
+
+### **Frontend**
+- **React 19** - Modern UI framework
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool
+- **Framer Motion** - Smooth animations
+- **Chart.js & Recharts** - Data visualization
+- **Ethers.js** - Blockchain interaction
+- **Lucide React** - Icon library
+
+### **Backend**
+- **Node.js** - Server runtime
+- **Express.js** - API framework
+- **Vercel Functions** - Serverless deployment
+- **Axios** - HTTP client
+- **CORS** - Cross-origin support
+
+### **Blockchain**
+- **ZetaChain** - Cross-chain infrastructure
+- **Solidity** - Smart contract language
+- **Hardhat** - Development framework
+- **Ethers.js** - Blockchain interaction
+
+### **APIs & Services**
+- **Google News API** - News aggregation
+- **CoinGecko API** - Crypto market data
+- **Gemini AI** - AI insights and analysis
+- **Telegram Bot API** - Automated alerts
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Node.js (v18 or later)
-- Yarn or npm
-- Git
-- Foundry (for smart contracts)
+### **Prerequisites**
+- Node.js 18+
+- npm or yarn
+- MetaMask wallet
+- API keys (Google News, CoinGecko, Gemini)
 
-### Installation
+### **Installation**
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/ombaviskar18/ZetaGuardian.git
-   cd ZetaGuardian/hello
+   git clone <repository-url>
+   cd hello
    ```
 
 2. **Install dependencies**
    ```bash
-   yarn install
-   # or
    npm install
+   cd frontend && npm install
+   cd ../api && npm install
    ```
 
-3. **Install Foundry dependencies**
+3. **Environment Setup**
    ```bash
-   forge soldeer update
+   # Create .env file in root directory
+   VITE_GOOGLE_NEWS=your_google_news_api_key
+   VITE_TELE_TOKEN=your_telegram_bot_token
+   GEMINI_API_KEY=your_gemini_api_key
+   COINGECKO_API_KEY=your_coingecko_api_key
    ```
 
-4. **Start the development server**
+4. **Start Development**
    ```bash
-   cd frontend
-   npm run dev
+   # Start frontend
+   npm run dev --prefix frontend
+   
+   # Start backend (in another terminal)
+   npm run server
    ```
 
-5. **Access the application**
-   ```
-   http://localhost:5173
+## 🌐 Deployment
+
+### **Vercel Deployment**
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Deploy to Vercel"
+   git push origin main
    ```
 
-## 📁 Project Structure
+2. **Deploy to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Set **Root Directory** to `hello`
+   - Configure environment variables
+   - Deploy
 
+### **Environment Variables (Vercel)**
+```bash
+VITE_GOOGLE_NEWS=your_google_news_api_key
+VITE_TELE_TOKEN=your_telegram_bot_token
+GEMINI_API_KEY=your_gemini_api_key
+COINGECKO_API_KEY=your_coingecko_api_key
+ALCHEMY_ETH_MAINNET_URL=your_alchemy_url
+ETHERSCAN_API_KEY=your_etherscan_key
 ```
-hello/
-├── contracts/                 # Smart contracts
-│   └── Universal.sol         # ZetaChain Universal Contract
-├── frontend/                 # React frontend application
-│   ├── src/
-│   │   ├── components/       # Reusable UI components
-│   │   ├── pages/           # Application pages
-│   │   ├── hooks/           # Custom React hooks
-│   │   ├── context/         # React context providers
-│   │   ├── utils/           # Utility functions
-│   │   └── constants/       # Application constants
-│   └── public/              # Static assets
-├── commands/                # CLI commands
-├── scripts/                 # Deployment scripts
-├── test/                    # Smart contract tests
-└── README.md               # This file
+
+### **Smart Contract Deployment**
+```bash
+# Deploy to ZetaChain
+npx hardhat compile
+npx hardhat deploy --network zeta
 ```
 
-## 🔧 Smart Contract Deployment
+## 📱 Usage
 
-### Testnet Deployment
+### **Contract Analysis**
+1. Navigate to Contract Analysis page
+2. Enter contract address or select chain
+3. Click "Analyze Contract"
+4. Review security score and recommendations
+5. Download detailed report
 
-1. **Compile contracts**
-   ```bash
-   npx hardhat compile
-   ```
+### **Social Analysis**
+1. Go to Social Analysis page
+2. Enter token symbol or project name
+3. Click "Start Social Analysis"
+4. View sentiment, trends, and news
+5. Join Telegram bot for alerts
 
-2. **Deploy to ZetaChain Athens Testnet**
-   ```bash
-   npx ts-node commands/index.ts deploy --network testnet
-   ```
+### **Tokenomics Analysis**
+1. Visit Tokenomics page
+2. Enter token symbol or address
+3. Analyze supply, distribution, metrics
+4. View AI insights and recommendations
+5. Check portfolio analysis
 
-3. **Cross-chain testing**
-   ```bash
-   npx zetachain evm call \
-     --chain-id 84532 \
-     --receiver $UNIVERSAL_CONTRACT \
-     --private-key $PRIVATE_KEY \
-     --types string \
-     --values "hello"
-   ```
+### **Real-time Monitoring**
+1. Access Monitoring page
+2. Enter token symbol or address
+3. Monitor live metrics and charts
+4. Get AI predictions and alerts
+5. Track market movements
 
-## 🎨 Features Overview
+## 🔧 Configuration
 
-### 🏠 Homepage
-- Hero section with animated background
-- Feature cards with hover effects
-- Statistics and workflow sections
-- Professional footer with social links
+### **API Keys Setup**
 
-### 🔍 Contract Analysis
-- Smart contract address input with validation
-- Comprehensive security scanning
-- Risk score visualization with circular progress
-- Detailed vulnerability reports
-- Downloadable analysis reports
+1. **Google News API**
+   - Visit [Google Cloud Console](https://console.cloud.google.com)
+   - Enable News API
+   - Get API key
 
-### 📈 Tokenomics Evaluation
-- Multi-chain token analysis
-- Whale concentration metrics
-- Tax structure evaluation
-- Minting rights assessment
+2. **CoinGecko API**
+   - Visit [CoinGecko](https://www.coingecko.com/en/api)
+   - Sign up for free API access
+   - Get API key
 
-### 👥 Social Forensics
-- Community sentiment analysis
-- Bot detection algorithms
-- Founder verification
-- Social media pattern recognition
+3. **Gemini AI**
+   - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - Create API key
 
-### 🚨 Real-time Monitoring
-- Live threat detection
-- Alert system integration
-- Community reporting
-- Threat intelligence sharing
+4. **Telegram Bot**
+   - Message [@BotFather](https://t.me/botfather)
+   - Create new bot
+   - Get bot token
 
-## 🛠️ Technology Stack
-
-### Frontend
-- **React 18+** - Modern UI library
-- **TypeScript** - Type-safe JavaScript
-- **Vite** - Fast build tool
-- **Framer Motion** - Smooth animations
-- **Lucide React** - Beautiful icons
-- **CSS3** - Modern styling with gradients and effects
-
-### Blockchain
-- **ZetaChain** - Universal smart contracts
-- **Solidity** - Smart contract language
-- **Foundry** - Development framework
-- **Hardhat** - Ethereum development environment
-
-### AI & Analytics
-- **Google Gemini** - AI analysis engine
-- **Pattern Recognition** - Custom algorithms
-- **Risk Scoring** - Proprietary models
-
-## 🔐 Security Features
-
-### Risk Scoring Algorithm
+### **Smart Contract Configuration**
+```bash
+# Update contract addresses in frontend/src/utils/contracts.ts
+# Update deployment scripts in scripts/
+# Configure network settings in hardhat.config.ts
 ```
-Weighted Model:
-├── Smart Contract Security → 40%
-├── Tokenomics Analysis    → 30%
-├── Social Signals         → 20%
-└── Liquidity/Trading      → 10%
 
-Risk Levels:
-├── 🟢 Low (0-30)      → Safe
-├── 🟡 Medium (31-60)  → Caution
-├── 🟠 High (61-80)    → Likely Scam
-└── 🔴 Critical (81-100) → Rugpull Imminent
-```
+## 📊 API Endpoints
+
+### **Contract Analysis**
+- `GET /api/inspect?chain=ethereum&address=0x...`
+- Returns: Security analysis, risk score, recommendations
+
+### **Social Insights**
+- `GET /api/social/insights?project=ethereum`
+- Returns: Sentiment analysis, news, trends
+
+### **Token Data**
+- `GET /api/token/total-supply?symbol=eth`
+- Returns: Token supply, decimals, market data
+
+### **Health Check**
+- `GET /api/health`
+- Returns: API status
+
+## 🔒 Security Features
+
+- **Smart Contract Auditing**: Automated vulnerability detection
+- **Risk Scoring**: Comprehensive risk assessment
+- **Real-time Monitoring**: Live threat detection
+- **AI Analysis**: Intelligent security insights
+- **Multi-chain Support**: Cross-chain security analysis
+
+## 🎯 Key Benefits
+
+### **For Investors**
+- **Risk Assessment**: Evaluate investment risks before investing
+- **Real-time Monitoring**: Track portfolio performance
+- **Market Insights**: AI-powered market analysis
+- **Social Sentiment**: Community sentiment tracking
+
+### **For Developers**
+- **Contract Security**: Audit smart contracts
+- **Cross-chain Support**: Multi-chain analysis
+- **API Access**: Programmatic access to data
+- **Custom Integrations**: Extensible architecture
+
+### **For Analysts**
+- **Comprehensive Data**: Multiple data sources
+- **AI Insights**: Automated analysis
+- **Report Generation**: Professional reports
+- **Real-time Updates**: Live data feeds
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🌟 Acknowledgments
+## 🆘 Support
 
-- **ZetaChain Team** for the Universal Smart Contract platform
-- **Google** for Gemini AI integration
-- **React Community** for the amazing ecosystem
-- **DeFi Community** for inspiration and feedback
-
-## 📞 Contact
-
-- **GitHub**: [@ombaviskar18](https://github.com/ombaviskar18)
-- **LinkedIn**: [Om Baviskar](https://www.linkedin.com/in/om-baviskar-/)
-- **Project**: [ZetaGuardian](https://github.com/ombaviskar18/ZetaGuardian)
+- **Documentation**: Check the code comments and inline docs
+- **Issues**: Report bugs via GitHub Issues
+- **Discussions**: Join community discussions
+- **Telegram**: [@Social_Alertbot](https://t.me/Social_Alertbot)
 
 ## 🚀 Roadmap
 
-- [ ] **Phase 1**: Core security analysis features
-- [ ] **Phase 2**: AI integration with Gemini
-- [ ] **Phase 3**: Multi-chain expansion
-- [ ] **Phase 4**: Mobile application
-- [ ] **Phase 5**: Community governance
-- [ ] **Phase 6**: Enterprise solutions
+- [ ] **Advanced AI Models**: Enhanced prediction algorithms
+- [ ] **More Chains**: Additional blockchain support
+- [ ] **Mobile App**: Native mobile application
+- [ ] **API Marketplace**: Third-party integrations
+- [ ] **Institutional Features**: Enterprise-grade tools
+- [ ] **DeFi Integration**: Direct DeFi protocol analysis
 
 ---
 
-<div align="center">
-  <p><strong>Built with ❤️ for DeFi security</strong></p>
-  <p>Powered by ZetaChain Universal Smart Contracts</p>
-</div>
+**Built with ❤️ on ZetaChain**
+
+*ZetaGuardian - Your DeFi Security Companion*

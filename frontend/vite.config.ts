@@ -20,5 +20,19 @@ export default defineConfig({
     commonjsOptions: {
       include: [/node_modules/, /toolkit/],
     },
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ethers: ['ethers'],
+          charts: ['chart.js', 'react-chartjs-2', 'recharts']
+        }
+      }
+    }
   },
+  server: {
+    port: 5173,
+    host: true
+  }
 });

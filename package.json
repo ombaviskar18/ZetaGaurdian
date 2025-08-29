@@ -11,7 +11,11 @@
     "server": "node server/index.js",
     "bot": "node server/telegramBotPolling.js",
     "bot:webhook": "node server/telegramBot.js",
-    "dev:all": "concurrently \"npm run bot --prefix .\" \"npm run dev --prefix ./frontend\""
+    "dev:all": "concurrently \"npm run bot --prefix .\" \"npm run dev --prefix ./frontend\"",
+    "build": "npm run build --prefix ./frontend",
+    "deploy": "npm run build && vercel --prod",
+    "deploy:dev": "vercel",
+    "vercel-build": "npm run build"
   },
   "keywords": [],
   "author": "",

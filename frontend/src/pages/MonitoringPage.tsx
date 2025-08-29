@@ -203,7 +203,7 @@ export function MonitoringPage() {
       const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
 
       try {
-        const response = await fetch(`http://localhost:5175/api/monitoring/prediction?${params.toString()}`, {
+        const response = await fetch(`/api/monitoring/prediction?${params.toString()}`, {
           signal: controller.signal
         });
         clearTimeout(timeoutId);
