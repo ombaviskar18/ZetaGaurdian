@@ -250,14 +250,17 @@
 }
 
 .feature-icon {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   color: #10b981;
   transition: all 0.3s ease;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0.5rem;
+  min-width: 80px;
+  min-height: 80px;
 }
 
 .feature-icon svg {
@@ -274,7 +277,7 @@
 
 .tokenomics-feature-item:hover .feature-icon svg {
   filter: drop-shadow(0 4px 8px rgba(16, 185, 129, 0.5));
-  transform: rotate(2deg);
+  transform: rotate(2deg) scale(1.1);
 }
 
 .tokenomics-feature-item span {
@@ -1463,8 +1466,8 @@
   }
   
   .feature-icon {
-    width: 56px;
-    height: 56px;
+    width: 70px;
+    height: 70px;
   }
   
   .input-row {
@@ -1503,8 +1506,8 @@
   }
   
   .feature-icon {
-    width: 44px;
-    height: 44px;
+    width: 60px;
+    height: 60px;
   }
   
   .tokenomics-feature-item span {

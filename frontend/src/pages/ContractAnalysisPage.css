@@ -244,11 +244,17 @@
 }
 
 .feature-icon {
-  width: 28px;
-  height: 28px;
+  width: 80px;
+  height: 80px;
   color: #3b82f6;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  min-width: 80px;
+  min-height: 80px;
 }
 
 .analysis-feature-item:hover .feature-icon {
