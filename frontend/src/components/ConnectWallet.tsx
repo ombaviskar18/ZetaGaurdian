@@ -1,6 +1,6 @@
 import './ConnectWallet.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useWallet } from '../hooks/useWallet';
 import type { EIP6963ProviderDetail } from '../types/wallet';
@@ -11,6 +11,20 @@ import { WalletSelectionModal } from './WalletSelectionModal';
 export const ConnectWallet = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { providers, connectWallet, connecting } = useWallet();
+
+  // Manage body overflow when wallet modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isModalOpen]);
 
   const handleConnectClick = () => {
     if (providers.length > 0) {

@@ -1,6 +1,6 @@
 import './Header.css';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, Home, BarChart3, Eye, Zap, MessageCircle, Menu, X } from 'lucide-react';
+import { Shield, Home, BarChart3, Eye, Zap, MessageCircle, Menu, X, DollarSign } from 'lucide-react';
 import { useState } from 'react';
 
 import { useWallet } from '../hooks/useWallet';
@@ -21,13 +21,8 @@ export const Header = () => {
     { path: '/send-message', label: 'Send Message', icon: MessageCircle },
   ];
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const toggleMobileMenu = () => { setIsMobileMenuOpen(!isMobileMenuOpen); };
+  const closeMobileMenu = () => { setIsMobileMenuOpen(false); };
 
   return (
     <div className="header-container">
@@ -36,76 +31,46 @@ export const Header = () => {
           <img src="/logos/logo.png" alt="ZetaGuardian Logo" className="header-logo-img" />
           <span className="title-line-2">ZetaGuardian</span>
         </Link>
-        
         {/* Desktop Navigation */}
         <nav className="header-links desktop-nav">
           {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`header-link ${location.pathname === link.path ? 'active' : ''}`}
-              onClick={closeMobileMenu}
-            >
+            <Link key={link.path} to={link.path} className={`header-link ${location.pathname === link.path ? 'active' : ''}`} onClick={closeMobileMenu}>
               <link.icon className="h-4 w-4" />
               <span>{link.label}</span>
             </Link>
           ))}
+          <Link to="/pricing" className={`header-link ${location.pathname === '/pricing' ? 'active' : ''}`} onClick={closeMobileMenu}>
+            <DollarSign className="h-4 w-4" />
+            <span>Pricing</span>
+          </Link>
         </nav>
-
         {/* Mobile Menu Button */}
-        <button 
-          className="mobile-menu-button"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle mobile menu"
-        >
-          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <button className="mobile-menu-button" onClick={toggleMobileMenu} aria-label="Toggle mobile menu">{isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button>
       </div>
-      
       <div className="header-controls">
-        {!account ? (
-          <div className="lg-only">
-            <ConnectWallet />
-          </div>
-        ) : (
-          <WalletControls />
-        )}
-        {/* Theme toggle removed per request */}
+        {!account ? (<div className="lg-only"><ConnectWallet /></div>) : (<WalletControls />)}
       </div>
-
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
         <div className="mobile-menu-overlay" onClick={closeMobileMenu}>
           <nav className="mobile-menu" onClick={(e) => e.stopPropagation()}>
             <div className="mobile-menu-header">
               <span className="mobile-menu-title">Menu</span>
-              <button 
-                className="mobile-menu-close"
-                onClick={closeMobileMenu}
-                aria-label="Close mobile menu"
-              >
-                <X className="h-6 w-6" />
-              </button>
+              <button className="mobile-menu-close" onClick={closeMobileMenu} aria-label="Close mobile menu"><X className="h-6 w-6" /></button>
             </div>
             <div className="mobile-menu-links">
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`mobile-menu-link ${location.pathname === link.path ? 'active' : ''}`}
-                  onClick={closeMobileMenu}
-                >
+                <Link key={link.path} to={link.path} className={`mobile-menu-link ${location.pathname === link.path ? 'active' : ''}`} onClick={closeMobileMenu}>
                   <link.icon className="h-5 w-5" />
                   <span>{link.label}</span>
                 </Link>
               ))}
+              <Link to="/pricing" className={`mobile-menu-link ${location.pathname === '/pricing' ? 'active' : ''}`} onClick={closeMobileMenu}>
+                <DollarSign className="h-5 w-5" />
+                <span>Pricing</span>
+              </Link>
             </div>
-            {/* Mobile Connect Wallet */}
-            {!account && (
-              <div className="mobile-connect-wallet">
-                <ConnectWallet />
-              </div>
-            )}
+            {!account && (<div className="mobile-connect-wallet"><ConnectWallet /></div>)}
           </nav>
         </div>
       )}

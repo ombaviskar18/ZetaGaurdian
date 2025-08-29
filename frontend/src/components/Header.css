@@ -7,7 +7,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1500;
+  z-index: 100; /* Base layer for header */
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(56, 189, 248, 0.2);
@@ -115,7 +115,7 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.8);
-  z-index: 1600;
+  z-index: 200; /* Above header */
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;

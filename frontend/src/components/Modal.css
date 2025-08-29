@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   padding: 1rem; /* prevent clipping on small viewports */
-  z-index: 2000; /* ensure above any header */
+  z-index: 1000; /* ensure above header and other elements */
 }
 
 .modal-content {
