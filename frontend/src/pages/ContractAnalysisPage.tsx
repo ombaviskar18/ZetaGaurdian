@@ -4,6 +4,7 @@ import { Shield, Scan, AlertTriangle, CheckCircle, Download, Wallet, Search, Bra
 import { useWallet } from '../hooks/useWallet';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
+import { contractService, switchToZetaChain } from '../utils/contracts';
 import './ContractAnalysisPage.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
@@ -47,8 +48,29 @@ export function ContractAnalysisPage() {
     }
 
     setIsScanning(true);
+    setErrorMessage('');
 
     try {
+      // Connect to wallet and switch to ZetaChain
+      const connected = await contractService.connect();
+      if (!connected) {
+        setErrorMessage('Failed to connect wallet. Please ensure MetaMask is installed.');
+        return;
+      }
+
+      // Switch to ZetaChain network
+      const switched = await switchToZetaChain();
+      if (!switched) {
+        setErrorMessage('Failed to switch to ZetaChain network. Please add ZetaChain to MetaMask.');
+        return;
+      }
+
+      // Call smart contract with payment
+      console.log('Calling smart contract for contract analysis...');
+      const tx = await contractService.requestContractAnalysis(addr);
+      console.log('Transaction successful:', tx);
+
+      // After successful payment, proceed with analysis
       const params = new URLSearchParams({ chain: 'ethereum', address: addr });
       const res = await fetch(`http://localhost:5175/api/inspect?${params.toString()}`);
       const data = await res.json();
@@ -69,9 +91,16 @@ export function ContractAnalysisPage() {
       };
       setScanResult(result);
       setErrorMessage('');
-    } catch (e) {
+    } catch (e: any) {
+      console.error('Error during contract analysis:', e);
       setScanResult(null);
-      setErrorMessage('Failed to fetch data. Please retry later.');
+      if (e.message && e.message.includes('Payment')) {
+        setErrorMessage('Payment required: Please ensure you have 0.01 aZETA and approve the transaction.');
+      } else if (e.message && e.message.includes('user rejected')) {
+        setErrorMessage('Transaction was rejected. Please try again and approve the payment.');
+      } else {
+        setErrorMessage('Failed to process analysis. Please check your wallet connection and try again.');
+      }
     } finally {
       setIsScanning(false);
     }

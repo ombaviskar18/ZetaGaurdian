@@ -4,6 +4,7 @@ import { Eye, AlertTriangle, CheckCircle, Download, Search, TrendingUp, External
 import { useWallet } from '../hooks/useWallet';
 import { Chart as ChartJS, ArcElement, Tooltip as ChartTooltip, Legend, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title } from 'chart.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
+import { contractService, switchToZetaChain } from '../utils/contracts';
 import './SocialAnalysisPage.css';
 
 ChartJS.register(ArcElement, ChartTooltip, Legend, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title);
@@ -15,6 +16,7 @@ export function SocialAnalysisPage() {
   const [insights, setInsights] = useState<string>('');
   const [insightAlerts, setInsightAlerts] = useState<string[]>([]);
   const [typingIndex, setTypingIndex] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const { account } = useWallet();
   const resultsRef = useRef<HTMLDivElement | null>(null);
  
@@ -149,7 +151,27 @@ export function SocialAnalysisPage() {
     if (!projectName.trim()) return;
 
     setIsAnalyzing(true);
+    setErrorMessage('');
     try {
+      // Connect to wallet and switch to ZetaChain
+      const connected = await contractService.connect();
+      if (!connected) {
+        setErrorMessage('Failed to connect wallet. Please ensure MetaMask is installed.');
+        return;
+      }
+
+      // Switch to ZetaChain network
+      const switched = await switchToZetaChain();
+      if (!switched) {
+        setErrorMessage('Failed to switch to ZetaChain network. Please add ZetaChain to MetaMask.');
+        return;
+      }
+
+      // Call smart contract with payment
+      console.log('Calling smart contract for social analysis...');
+      const tx = await contractService.requestSocialAnalysis(projectName.trim());
+      console.log('Transaction successful:', tx);
+
       // Clear previous results
       setAnalysisResult(null);
       setInsights('');
@@ -268,6 +290,16 @@ export function SocialAnalysisPage() {
       }, 1000);
 
       setTimeout(()=>{ if (resultsRef.current) resultsRef.current.scrollIntoView({behavior:'smooth'}); }, 200);
+    } catch (err: any) {
+      console.error('Error during social analysis:', err);
+      if (err.message && err.message.includes('Payment')) {
+        setErrorMessage('Payment required: Please ensure you have 0.01 aZETA and approve the transaction.');
+      } else if (err.message && err.message.includes('user rejected')) {
+        setErrorMessage('Transaction was rejected. Please try again and approve the payment.');
+      } else {
+        setErrorMessage('Failed to analyze social data. Please check your wallet connection and try again.');
+      }
+      setAnalysisResult(null);
     } finally { setIsAnalyzing(false); }
   };
 
@@ -344,6 +376,12 @@ export function SocialAnalysisPage() {
                 <div className="scanner-header">
                   <h2 className="scanner-title">Social<span className="title-line-2"> Forensics Scanner</span></h2>
                   <p className="scanner-subtitle">Enter a project name or token symbol to fetch latest news and build sentiment + SWOT</p>
+                  {errorMessage && (
+                    <div className="error-message">
+                      <AlertTriangle className="error-icon" />
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
                   {!NEWS_API_KEY || NEWS_API_KEY === 'your_gnews_api_key_here' ? (
                     <div className="api-status">
                       <span className="api-status-badge">Demo Mode</span>

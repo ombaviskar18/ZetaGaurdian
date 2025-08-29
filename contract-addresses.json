@@ -1,8 +1,8 @@
 {
-  "ContractAnalysis": "0xE623c001F28811F72aa024BF9608a59c5e66720d",
-  "Tokenomics": "0xa7f984BF6Cb376AC8Fb6A58aA6F65d7F940fFFea",
-  "SocialAnalysis": "0xC71F50AbCb258D800E9Ad52c4A93DA0BcAB294E0",
-  "Monitoring": "0x4aA7B747Ed35B358B62fc9e13F8aCC696e517477",
+  "ContractAnalysis": "0xdb5fC412a5515033265Dc9e8d383f9C2b551c747",
+  "Tokenomics": "0xdAeB7bAc9606598f14F4382Fc3E95278ed2317db",
+  "SocialAnalysis": "0x74BAd0e70daaD1D12Fd97170aE6D65bDaE77a982",
+  "Monitoring": "0x0CeA3f0aD00C20F1824373635474c4d72a5E6B82",
   "Gateway": "0x6c533f7fe93fae114d0954697069df33c9b74fd7",
   "Network": {
     "name": "ZetaChain Athens 3",

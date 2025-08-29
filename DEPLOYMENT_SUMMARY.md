@@ -1,189 +1,135 @@
-# 🚀 ZetaGuardian Smart Contracts - Deployment Summary
+# 🛡️ ZetaGuardian - Updated Contract Deployment Summary
 
-## ✅ Deployment Status: **SUCCESSFUL**
+## ✅ **DEPLOYMENT COMPLETE - Per-Use Payment System**
 
-All four feature contracts have been successfully deployed to **ZetaChain Athens 3 Testnet**.
+### 🎯 **Updated Contract System:**
+**Payment Model Changed:** From one-time access to **per-use payments**
 
----
+### 📋 **New Contract Addresses:**
+- **ContractAnalysis:** `0xdb5fC412a5515033265Dc9e8d383f9C2b551c747`
+- **Tokenomics:** `0xdAeB7bAc9606598f14F4382Fc3E95278ed2317db`
+- **SocialAnalysis:** `0x74BAd0e70daaD1D12Fd97170aE6D65bDaE77a982`
+- **Monitoring:** `0x0CeA3f0aD00C20F1824373635474c4d72a5E6B82`
+- **Gateway:** `0x6c533f7fe93fae114d0954697069df33c9b74fd7`
 
-## 📋 Contract Addresses
+## 🔧 **Key Changes Made:**
 
-| Contract | Address |
-|----------|---------|
-| **ContractAnalysis** | `0xE623c001F28811F72aa024BF9608a59c5e66720d` |
-| **Tokenomics** | `0xa7f984BF6Cb376AC8Fb6A58aA6F65d7F940fFFea` |
-| **SocialAnalysis** | `0xC71F50AbCb258D800E9Ad52c4A93DA0BcAB294E0` |
-| **Monitoring** | `0x4aA7B747Ed35B358B62fc9e13F8aCC696e517477` |
+### **1. Payment System Update:**
+- **Old:** One-time payment of 0.001 aZETA for permanent access
+- **New:** **0.01 aZETA payment required for EACH analysis**
+- **Payment Required:** Every time user clicks "Analyze" button
 
----
+### **2. Contract Modifications:**
+- ✅ **Removed:** `hasPaid` mapping (one-time payment tracking)
+- ✅ **Removed:** `checkPaymentStatus()` function
+- ✅ **Updated:** `requirePayment` modifier (0.01 aZETA per use)
+- ✅ **Updated:** All request functions now require payment each time
 
-## 🌐 Network Configuration
+### **3. Frontend Integration:**
+- ✅ **Updated:** Contract addresses in `frontend/src/utils/contracts.ts`
+- ✅ **Updated:** Payment amount from 0.001 to 0.01 aZETA
+- ✅ **Updated:** Removed payment status checking functions
 
-- **Network Name**: ZetaChain Athens 3
-- **RPC URL**: `https://zetachain-athens-evm.blockpi.network/v1/rpc/public`
-- **Chain ID**: `7001`
-- **Currency**: `aZETA`
-- **Explorer**: `https://athens3.zetascan.io`
-- **Gateway**: `0x6c533f7fe93fae114d0954697069df33c9b74fd7`
+## 💰 **Payment Flow:**
 
----
+### **User Experience:**
+1. **User clicks "Analyze" button** on any feature page
+2. **MetaMask popup appears** requesting 0.01 aZETA payment
+3. **User confirms transaction** in MetaMask
+4. **Transaction is processed** on ZetaChain Athens 3
+5. **Analysis starts** after successful payment
+6. **Results displayed** to user
 
-## 💰 Payment System
+### **Payment Requirements:**
+- **Contract Analysis:** 0.01 aZETA per analysis
+- **Tokenomics Evaluation:** 0.01 aZETA per analysis  
+- **Social Analysis:** 0.01 aZETA per analysis
+- **Monitoring:** 0.01 aZETA per analysis
 
-- **Minimum Payment**: `0.001 aZETA` per feature
-- **Payment Type**: One-time payment per user per feature
-- **Purpose**: Access control and spam prevention
+## 🔗 **Network Configuration:**
+- **Network:** ZetaChain Athens 3 Testnet
+- **Chain ID:** 7001
+- **RPC URL:** `https://zetachain-athens-evm.blockpi.network/v1/rpc/public`
+- **Currency:** aZETA (testnet tokens)
+- **Explorer:** `https://athens3.zetascan.io`
 
----
+## 📁 **Files Updated:**
 
-## 🔧 Contract Functions
+### **Smart Contracts:**
+- `contracts/ContractAnalysis.sol` - Updated payment system
+- `contracts/Tokenomics.sol` - Updated payment system
+- `contracts/SocialAnalysis.sol` - Updated payment system
+- `contracts/Monitoring.sol` - Updated payment system
 
-### Common Functions (All Contracts)
+### **Frontend:**
+- `frontend/src/utils/contracts.ts` - Updated addresses and payment amounts
+- `contract-addresses.json` - New contract addresses
 
+### **Deployment:**
+- `scripts/deploy-features.ts` - Updated payment documentation
+
+## 🚀 **How It Works:**
+
+### **1. User Initiates Analysis:**
+```javascript
+// Frontend calls contract with payment
+const payment = ethers.parseEther("0.01");
+const tx = await contract.requestContractAnalysis(address, { value: payment });
+```
+
+### **2. Contract Validates Payment:**
 ```solidity
-// Request analysis with payment
-function requestContractAnalysis(string memory contractAddress) external payable
-function requestTokenomicsAnalysis(string memory tokenAddress) external payable
-function requestSocialAnalysis(string memory projectName) external payable
-function requestMonitoring(string memory targetAddress) external payable
-
-// Check payment status
-function checkPaymentStatus(address user) external view returns (bool)
-
-// Get user requests
-function getUserRequests(address user) external view returns (Request[] memory)
+modifier requirePayment() {
+    require(msg.value >= ANALYSIS_PAYMENT, "Payment of 0.01 ZETA required for each analysis");
+    _;
+}
 ```
 
-### Monitoring-Specific Functions
-
+### **3. Analysis Request Created:**
 ```solidity
-// Trigger alert
-function triggerAlert(address user, uint256 requestIndex, string memory alertType, string memory message) external onlyOwner
-
-// Stop monitoring
-function stopMonitoring(uint256 requestIndex) external
+function requestContractAnalysis(string memory contractAddress) external payable requirePayment {
+    // Creates new analysis request
+    // Emits events for frontend tracking
+}
 ```
+
+## ✅ **Testing Instructions:**
+
+### **1. Get Testnet Tokens:**
+- Visit: https://labs.zetachain.com/get-zeta
+- Connect your wallet
+- Request aZETA tokens
+
+### **2. Test Payment Flow:**
+1. Navigate to any feature page (Contract Analysis, Tokenomics, etc.)
+2. Enter a test address/name
+3. Click "Analyze" button
+4. Confirm MetaMask transaction for 0.01 aZETA
+5. Verify analysis starts after payment
+
+### **3. Verify Multiple Payments:**
+- Try the same feature multiple times
+- Each attempt should require a new 0.01 aZETA payment
+- No "already paid" status should exist
+
+## 🔍 **Contract Verification:**
+
+### **View on Explorer:**
+- **ContractAnalysis:** https://athens3.zetascan.io/address/0xdb5fC412a5515033265Dc9e8d383f9C2b551c747
+- **Tokenomics:** https://athens3.zetascan.io/address/0xdAeB7bAc9606598f14F4382Fc3E95278ed2317db
+- **SocialAnalysis:** https://athens3.zetascan.io/address/0x74BAd0e70daaD1D12Fd97170aE6D65bDaE77a982
+- **Monitoring:** https://athens3.zetascan.io/address/0x0CeA3f0aD00C20F1824373635474c4d72a5E6B82
+
+## 🎉 **Deployment Status:**
+✅ **All contracts deployed successfully**
+✅ **Payment system updated to per-use model**
+✅ **Frontend integration updated**
+✅ **Ready for testing and production use**
 
 ---
 
-## 🔍 Events
-
-All contracts emit events for tracking and frontend integration:
-
-```solidity
-event FeatureRequested(address indexed user, string target, uint256 payment)
-event FeatureCompleted(address indexed user, string target, uint256 riskScore, string analysis)
-event PaymentReceived(address indexed user, uint256 amount)
-event AlertTriggered(address indexed user, string target, string alertType, string message) // Monitoring only
-```
-
----
-
-## 🎯 Frontend Integration
-
-### 1. Import Contract Service
-
-```typescript
-import { contractService, switchToZetaChain } from './utils/contracts';
-```
-
-### 2. Connect Wallet
-
-```typescript
-// Connect to wallet
-await contractService.connect();
-
-// Switch to ZetaChain network
-await switchToZetaChain();
-```
-
-### 3. Request Analysis
-
-```typescript
-// Contract Analysis
-await contractService.requestContractAnalysis("0xContractAddress");
-
-// Tokenomics Analysis
-await contractService.requestTokenomicsAnalysis("0xTokenAddress");
-
-// Social Analysis
-await contractService.requestSocialAnalysis("ProjectName");
-
-// Monitoring
-await contractService.requestMonitoring("0xTargetAddress");
-```
-
-### 4. Check Payment Status
-
-```typescript
-const hasPaid = await contractService.checkPaymentStatus('ContractAnalysis', userAddress);
-```
-
-### 5. Get User History
-
-```typescript
-const requests = await contractService.getUserRequests('ContractAnalysis', userAddress);
-```
-
----
-
-## 🧪 Testing Commands
-
-### Check Contract Balance
-```bash
-npx hardhat console --network zetachainAthens
-> const contract = await ethers.getContractAt("ContractAnalysis", "0xE623c001F28811F72aa024BF9608a59c5e66720d")
-> await contract.getContractBalance()
-```
-
-### Check Payment Status
-```bash
-npx hardhat console --network zetachainAthens
-> const contract = await ethers.getContractAt("ContractAnalysis", "0xE623c001F28811F72aa024BF9608a59c5e66720d")
-> await contract.checkPaymentStatus("0xYourAddress")
-```
-
----
-
-## 📊 Gas Estimates
-
-- **Deployment**: ~2,000,000 gas per contract
-- **Feature Request**: ~150,000 gas
-- **Analysis Completion**: ~100,000 gas
-- **Payment Check**: ~25,000 gas (view function)
-
----
-
-## 🔗 Explorer Links
-
-- **ContractAnalysis**: https://athens3.zetascan.io/address/0xE623c001F28811F72aa024BF9608a59c5e66720d
-- **Tokenomics**: https://athens3.zetascan.io/address/0xa7f984BF6Cb376AC8Fb6A58aA6F65d7F940fFFea
-- **SocialAnalysis**: https://athens3.zetascan.io/address/0xC71F50AbCb258D800E9Ad52c4A93DA0BcAB294E0
-- **Monitoring**: https://athens3.zetascan.io/address/0x4aA7B747Ed35B358B62fc9e13F8aCC696e517477
-
----
-
-## 🚀 Next Steps
-
-1. **Frontend Integration**: Use the contract addresses in your frontend
-2. **Payment Testing**: Test the payment flow with small amounts
-3. **Backend Integration**: Set up backend to call `completeAnalysis` functions
-4. **Event Listening**: Implement event listeners for real-time updates
-5. **Production Deployment**: Deploy to mainnet when ready
-
----
-
-## 📞 Support
-
-For technical support:
-- Check the contract addresses in `contract-addresses.json`
-- Review the contract source code in `contracts/` directory
-- Use the explorer links to verify transactions
-- Check the ZetaChain documentation for cross-chain features
-
----
-
-**Deployment Date**: August 27, 2025  
-**Deployer**: Your wallet address  
-**Network**: ZetaChain Athens 3 Testnet  
-**Status**: ✅ All contracts deployed and verified
+**Next Steps:**
+1. Test the payment flow on each feature
+2. Verify MetaMask integration works correctly
+3. Test multiple payments for the same feature
+4. Monitor contract events and transactions

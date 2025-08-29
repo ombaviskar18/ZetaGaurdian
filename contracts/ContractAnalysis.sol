@@ -7,8 +7,8 @@ import {IZRC20} from "@zetachain/protocol-contracts/contracts/zevm/interfaces/IZ
 contract ContractAnalysis is UniversalContract {
     GatewayZEVM public immutable GATEWAY;
     
-    // Minimum payment required to access the service (0.001 ZETA)
-    uint256 public constant MINIMUM_PAYMENT = 0.001 ether;
+    // Payment required for each analysis (0.01 ZETA)
+    uint256 public constant ANALYSIS_PAYMENT = 0.01 ether;
     
     // Events
     event ContractAnalysisRequested(address indexed user, string contractAddress, uint256 payment);
@@ -29,7 +29,6 @@ contract ContractAnalysis is UniversalContract {
     
     // State variables
     mapping(address => AnalysisRequest[]) public userRequests;
-    mapping(address => bool) public hasPaid;
     address public owner;
     
     modifier onlyGateway() {
@@ -42,8 +41,8 @@ contract ContractAnalysis is UniversalContract {
         _;
     }
     
-    modifier hasValidPayment() {
-        require(hasPaid[msg.sender], "Payment required to access service");
+    modifier requirePayment() {
+        require(msg.value >= ANALYSIS_PAYMENT, "Payment of 0.01 ZETA required for each analysis");
         _;
     }
 
@@ -63,15 +62,11 @@ contract ContractAnalysis is UniversalContract {
     }
     
     /**
-     * @dev Request contract analysis - requires minimum payment
+     * @dev Request contract analysis - requires payment for each analysis
      * @param contractAddress The contract address to analyze
      */
-    function requestContractAnalysis(string memory contractAddress) external payable {
-        require(msg.value >= MINIMUM_PAYMENT, "Insufficient payment amount");
+    function requestContractAnalysis(string memory contractAddress) external payable requirePayment {
         require(bytes(contractAddress).length > 0, "Contract address cannot be empty");
-        
-        // Mark user as paid
-        hasPaid[msg.sender] = true;
         
         // Create analysis request
         AnalysisRequest memory newRequest = AnalysisRequest({
@@ -127,14 +122,7 @@ contract ContractAnalysis is UniversalContract {
         return userRequests[user];
     }
     
-    /**
-     * @dev Check if user has paid for service access
-     * @param user The user address
-     * @return True if user has paid
-     */
-    function checkPaymentStatus(address user) external view returns (bool) {
-        return hasPaid[user];
-    }
+
     
     /**
      * @dev Withdraw accumulated payments (owner only)

@@ -47,7 +47,7 @@ async function main() {
   console.log(`   Currency: aZETA`);
   console.log(`   Explorer: https://athens3.zetascan.io`);
 
-  console.log("\n💰 Minimum Payment Required: 0.001 aZETA per feature");
+  console.log("\n💰 Payment Required: 0.01 aZETA per feature");
 
   // Save contract addresses to a file for frontend integration
   const contractAddresses = {

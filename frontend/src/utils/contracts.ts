@@ -2,10 +2,10 @@ import { ethers } from 'ethers';
 
 // Contract addresses from deployment
 export const CONTRACT_ADDRESSES = {
-  ContractAnalysis: "0xE623c001F28811F72aa024BF9608a59c5e66720d",
-  Tokenomics: "0xa7f984BF6Cb376AC8Fb6A58aA6F65d7F940fFFea",
-  SocialAnalysis: "0xC71F50AbCb258D800E9Ad52c4A93DA0BcAB294E0",
-  Monitoring: "0x4aA7B747Ed35B358B62fc9e13F8aCC696e517477",
+  ContractAnalysis: "0xdb5fC412a5515033265Dc9e8d383f9C2b551c747",
+  Tokenomics: "0xdAeB7bAc9606598f14F4382Fc3E95278ed2317db",
+  SocialAnalysis: "0x74BAd0e70daaD1D12Fd97170aE6D65bDaE77a982",
+  Monitoring: "0x0CeA3f0aD00C20F1824373635474c4d72a5E6B82",
   Gateway: "0x6c533f7fe93fae114d0954697069df33c9b74fd7"
 };
 
@@ -26,8 +26,7 @@ export const CONTRACT_ABI = [
   "function requestSocialAnalysis(string memory projectName) external payable",
   "function requestMonitoring(string memory targetAddress) external payable",
   
-  // Check payment status
-  "function checkPaymentStatus(address user) external view returns (bool)",
+
   
   // Get user requests
   "function getUserRequests(address user) external view returns (tuple(address user, string target, uint256 payment, bool completed, uint256 riskScore, string analysis, uint256 timestamp)[])",
@@ -70,21 +69,20 @@ export class ContractService {
       this.signer
     );
 
-    const payment = ethers.parseEther("0.001");
+    const payment = ethers.parseEther("0.01");
     const tx = await contract.requestContractAnalysis(contractAddress, { value: payment });
     return await tx.wait();
   }
 
   async requestTokenomicsAnalysis(tokenAddress: string) {
     if (!this.signer) throw new Error("Wallet not connected");
-    
     const contract = new ethers.Contract(
       CONTRACT_ADDRESSES.Tokenomics,
       CONTRACT_ABI,
       this.signer
     );
 
-    const payment = ethers.parseEther("0.001");
+    const payment = ethers.parseEther("0.01");
     const tx = await contract.requestTokenomicsAnalysis(tokenAddress, { value: payment });
     return await tx.wait();
   }
@@ -98,7 +96,7 @@ export class ContractService {
       this.signer
     );
 
-    const payment = ethers.parseEther("0.001");
+    const payment = ethers.parseEther("0.01");
     const tx = await contract.requestSocialAnalysis(projectName, { value: payment });
     return await tx.wait();
   }
@@ -112,7 +110,7 @@ export class ContractService {
       this.signer
     );
 
-    const payment = ethers.parseEther("0.001");
+    const payment = ethers.parseEther("0.01");
     const tx = await contract.requestMonitoring(targetAddress, { value: payment });
     return await tx.wait();
   }

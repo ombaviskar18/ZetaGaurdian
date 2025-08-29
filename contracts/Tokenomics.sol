@@ -7,8 +7,8 @@ import {IZRC20} from "@zetachain/protocol-contracts/contracts/zevm/interfaces/IZ
 contract Tokenomics is UniversalContract {
     GatewayZEVM public immutable GATEWAY;
     
-    // Minimum payment required to access the service (0.001 ZETA)
-    uint256 public constant MINIMUM_PAYMENT = 0.001 ether;
+    // Payment required for each analysis (0.01 ZETA)
+    uint256 public constant ANALYSIS_PAYMENT = 0.01 ether;
     
     // Events
     event TokenomicsAnalysisRequested(address indexed user, string tokenAddress, uint256 payment);
@@ -29,7 +29,6 @@ contract Tokenomics is UniversalContract {
     
     // State variables
     mapping(address => TokenomicsRequest[]) public userRequests;
-    mapping(address => bool) public hasPaid;
     address public owner;
     
     modifier onlyGateway() {
@@ -42,8 +41,8 @@ contract Tokenomics is UniversalContract {
         _;
     }
     
-    modifier hasValidPayment() {
-        require(hasPaid[msg.sender], "Payment required to access service");
+    modifier requirePayment() {
+        require(msg.value >= ANALYSIS_PAYMENT, "Payment of 0.01 ZETA required for each analysis");
         _;
     }
 
@@ -63,15 +62,11 @@ contract Tokenomics is UniversalContract {
     }
     
     /**
-     * @dev Request tokenomics analysis - requires minimum payment
+     * @dev Request tokenomics analysis - requires payment for each analysis
      * @param tokenAddress The token address to analyze
      */
-    function requestTokenomicsAnalysis(string memory tokenAddress) external payable {
-        require(msg.value >= MINIMUM_PAYMENT, "Insufficient payment amount");
+    function requestTokenomicsAnalysis(string memory tokenAddress) external payable requirePayment {
         require(bytes(tokenAddress).length > 0, "Token address cannot be empty");
-        
-        // Mark user as paid
-        hasPaid[msg.sender] = true;
         
         // Create tokenomics request
         TokenomicsRequest memory newRequest = TokenomicsRequest({
@@ -127,14 +122,7 @@ contract Tokenomics is UniversalContract {
         return userRequests[user];
     }
     
-    /**
-     * @dev Check if user has paid for service access
-     * @param user The user address
-     * @return True if user has paid
-     */
-    function checkPaymentStatus(address user) external view returns (bool) {
-        return hasPaid[user];
-    }
+
     
     /**
      * @dev Withdraw accumulated payments (owner only)

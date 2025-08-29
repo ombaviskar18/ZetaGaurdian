@@ -4,6 +4,7 @@ import { CheckCircle, Download, Brain, TrendingUp, TrendingDown, Activity, Walle
 import { useWallet } from '../hooks/useWallet';
 import { Chart as ChartJS, ArcElement, Tooltip as ChartTooltip, Legend, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, DoughnutController } from 'chart.js';
 import { Bar, Pie, Line, Doughnut } from 'react-chartjs-2';
+import { contractService, switchToZetaChain } from '../utils/contracts';
 import './TokenomicsPage.css';
 
 ChartJS.register(ArcElement, ChartTooltip, Legend, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, DoughnutController);
@@ -200,6 +201,26 @@ export function TokenomicsPage() {
     setErrorMessage('');
     
     try {
+      // Connect to wallet and switch to ZetaChain
+      const connected = await contractService.connect();
+      if (!connected) {
+        setErrorMessage('Failed to connect wallet. Please ensure MetaMask is installed.');
+        return;
+      }
+
+      // Switch to ZetaChain network
+      const switched = await switchToZetaChain();
+      if (!switched) {
+        setErrorMessage('Failed to switch to ZetaChain network. Please add ZetaChain to MetaMask.');
+        return;
+      }
+
+      // Call smart contract with payment
+      console.log('Calling smart contract for tokenomics analysis...');
+      const tx = await contractService.requestTokenomicsAnalysis(tokenInput.trim());
+      console.log('Transaction successful:', tx);
+
+      // After successful payment, proceed with token analysis
       const tokenData = await searchToken(tokenInput.trim());
       
       if (!tokenData) {
@@ -267,9 +288,15 @@ export function TokenomicsPage() {
       
       setAnalysisResult(analysisResult);
       setErrorMessage('');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error analyzing tokenomics:', err);
-      setErrorMessage('Failed to analyze tokenomics. Please try again.');
+      if (err.message && err.message.includes('Payment')) {
+        setErrorMessage('Payment required: Please ensure you have 0.01 aZETA and approve the transaction.');
+      } else if (err.message && err.message.includes('user rejected')) {
+        setErrorMessage('Transaction was rejected. Please try again and approve the payment.');
+      } else {
+        setErrorMessage('Failed to analyze tokenomics. Please check your wallet connection and try again.');
+      }
       setAnalysisResult(null);
     } finally {
       setIsAnalyzing(false);

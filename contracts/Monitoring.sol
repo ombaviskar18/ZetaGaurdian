@@ -7,8 +7,8 @@ import {IZRC20} from "@zetachain/protocol-contracts/contracts/zevm/interfaces/IZ
 contract Monitoring is UniversalContract {
     GatewayZEVM public immutable GATEWAY;
     
-    // Minimum payment required to access the service (0.001 ZETA)
-    uint256 public constant MINIMUM_PAYMENT = 0.001 ether;
+    // Payment required for each analysis (0.01 ZETA)
+    uint256 public constant ANALYSIS_PAYMENT = 0.01 ether;
     
     // Events
     event MonitoringRequested(address indexed user, string targetAddress, uint256 payment);
@@ -31,7 +31,6 @@ contract Monitoring is UniversalContract {
     
     // State variables
     mapping(address => MonitoringRequest[]) public userRequests;
-    mapping(address => bool) public hasPaid;
     address public owner;
     
     modifier onlyGateway() {
@@ -44,8 +43,8 @@ contract Monitoring is UniversalContract {
         _;
     }
     
-    modifier hasValidPayment() {
-        require(hasPaid[msg.sender], "Payment required to access service");
+    modifier requirePayment() {
+        require(msg.value >= ANALYSIS_PAYMENT, "Payment of 0.01 ZETA required for each analysis");
         _;
     }
 
@@ -65,15 +64,11 @@ contract Monitoring is UniversalContract {
     }
     
     /**
-     * @dev Request monitoring service - requires minimum payment
+     * @dev Request monitoring service - requires payment for each analysis
      * @param targetAddress The address to monitor
      */
-    function requestMonitoring(string memory targetAddress) external payable {
-        require(msg.value >= MINIMUM_PAYMENT, "Insufficient payment amount");
+    function requestMonitoring(string memory targetAddress) external payable requirePayment {
         require(bytes(targetAddress).length > 0, "Target address cannot be empty");
-        
-        // Mark user as paid
-        hasPaid[msg.sender] = true;
         
         // Create monitoring request
         MonitoringRequest memory newRequest = MonitoringRequest({
@@ -165,14 +160,7 @@ contract Monitoring is UniversalContract {
         return userRequests[user];
     }
     
-    /**
-     * @dev Check if user has paid for service access
-     * @param user The user address
-     * @return True if user has paid
-     */
-    function checkPaymentStatus(address user) external view returns (bool) {
-        return hasPaid[user];
-    }
+
     
     /**
      * @dev Withdraw accumulated payments (owner only)
