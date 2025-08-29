@@ -15,7 +15,7 @@
     "build": "npm run build --prefix ./frontend",
     "deploy": "npm run build && vercel --prod",
     "deploy:dev": "vercel",
-    "vercel-build": "npm run build"
+    "vercel-build": "npm run build --prefix ./frontend"
   },
   "keywords": [],
   "author": "",
