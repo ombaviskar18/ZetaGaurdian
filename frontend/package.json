@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "vercel-build": "tsc && vite build"
+    "vercel-build": "tsc && vite build && echo 'Build completed successfully'"
   },
   "dependencies": {
     "@zetachain/toolkit": "16.0.1",
