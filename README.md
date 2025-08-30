@@ -1,9 +1,12 @@
 # 🛡️ ZetaGuardian
 
 <div align="center">
-  <img src="https://via.placeholder.com/400x200/1a1a2e/ffffff?text=ZetaGuardian+Logo" alt="ZetaGuardian Logo" width="400"/>
+  <img src="https://raw.githubusercontent.com/ombaviskar18/ZetaGaurdian/main/hello/public/logo.png" alt="ZetaGuardian Logo" width="400"/>
   
-  [![Demo Video](https://img.shields.io/badge/Watch-Demo%20Video-red?style=for-the-badge&logo=youtube)](https://youtu.be/demo-video-link)
+  <video width="600" height="400" controls>
+    <source src="https://raw.githubusercontent.com/ombaviskar18/ZetaGaurdian/main/hello/public/heroivideo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
   
   **DeFi Security & Analysis Platform**
   
