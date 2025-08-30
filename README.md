@@ -1,10 +1,8 @@
-# 🛡️ ZetaGuardian
+# <img src="https://raw.githubusercontent.com/ombaviskar18/ZetaGaurdian/main/hello/public/logo.png" alt="ZetaGuardian" width="50" height="50"/> ZetaGuardian
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/ombaviskar18/ZetaGaurdian/main/hello/public/logo.png" alt="ZetaGuardian Logo" width="400"/>
-  
-  <video width="600" height="400" controls>
-    <source src="https://raw.githubusercontent.com/ombaviskar18/ZetaGaurdian/main/hello/public/heroivideo.mp4" type="video/mp4">
+  <video width="800" height="450" autoplay loop muted style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    <source src="https://raw.githubusercontent.com/ombaviskar18/ZetaGaurdian/main/hello/public/logos/heroivideo.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   
