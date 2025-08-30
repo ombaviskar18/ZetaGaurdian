@@ -196,6 +196,28 @@ app.get('/api/inspect', async (req, res) => {
 
     console.log(`[inspect] chain=${chain} address=${address}`);
 
+    // Check if RPC and API keys are configured
+    const cfg = CHAIN_CONFIG[chain];
+    if (!cfg) {
+      return res.status(400).json({ error: `Chain configuration not found: ${chain}` });
+    }
+
+    if (!cfg.rpc) {
+      return res.status(500).json({ 
+        error: `RPC URL not configured for ${chain}. Please set ${chain.toUpperCase()}_RPC_URL environment variable in Vercel.`,
+        setup_required: true,
+        missing_config: 'rpc_url'
+      });
+    }
+
+    if (!cfg.key) {
+      return res.status(500).json({ 
+        error: `API key not configured for ${chain}. Please set ${chain.toUpperCase()}SCAN_API_KEY environment variable in Vercel.`,
+        setup_required: true,
+        missing_config: 'api_key'
+      });
+    }
+
     // 1) Try ABI from explorer
     let abi = await fetchAbiFromExplorer(chain, address);
     let analysisSource = 'explorer';
