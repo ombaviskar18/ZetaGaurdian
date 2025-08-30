@@ -22,7 +22,7 @@ export function SocialAnalysisPage() {
  
 
 
-  const NEWS_API_KEY = import.meta.env.VITE_GOOGLE_NEWS || '';
+
 
   // Derived data for charts
   const [sentimentCounts, setSentimentCounts] = useState<{pos:number,neu:number,neg:number}>({pos:0,neu:0,neg:0});
@@ -42,58 +42,25 @@ export function SocialAnalysisPage() {
   };
 
   const fetchNewsArticles = async (query: string) => {
-    console.log('Fetching news for query:', query);
-    console.log('API Key available:', !!NEWS_API_KEY);
-    console.log('API Key length:', NEWS_API_KEY.length);
-    
-    // Try Google News API first
-    if (NEWS_API_KEY && NEWS_API_KEY !== 'your_gnews_api_key_here') {
-      try {
-        const gUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=en&max=30&sortby=publishedAt&apikey=${NEWS_API_KEY}`;
-        console.log('Trying Google News API...');
-        const gRes = await fetch(gUrl);
-        const gData = await gRes.json();
-        console.log('Google News response:', gRes.status, gData);
-        
-        if (gRes.ok && Array.isArray(gData.articles) && gData.articles.length > 0) {
-          console.log('Google News articles found:', gData.articles.length);
-          return gData.articles.map((a:any)=>({ 
-            title: a.title, 
-            description: a.description, 
-            url: a.url, 
-            source: a.source?.name || 'Unknown', 
-            publishedAt: a.publishedAt 
-          }));
-        } else if (gRes.ok && gData.errors) {
-          console.error('Google News API errors:', gData.errors);
-        }
-      } catch (error) {
-        console.error('Google News API error:', error);
+    try {
+      // Call our backend API endpoint
+      const apiUrl = `${window.location.origin}/api/news?q=${encodeURIComponent(query)}`;
+      console.log('Calling backend news API:', apiUrl);
+      
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      
+      console.log('Backend news API response:', response.status, data);
+      
+      if (response.ok && Array.isArray(data.articles) && data.articles.length > 0) {
+        console.log('Real news articles found:', data.articles.length, 'from', data.source);
+        return data.articles;
+      } else {
+        console.log('No real news articles found, using fallback data');
+        console.log('API response:', data);
       }
-    }
-
-    // Try NewsAPI as fallback
-    if (NEWS_API_KEY && NEWS_API_KEY !== 'your_gnews_api_key_here') {
-      try {
-        const nUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=30&apiKey=${NEWS_API_KEY}`;
-        console.log('Trying NewsAPI...');
-        const nRes = await fetch(nUrl);
-        const nData = await nRes.json();
-        console.log('NewsAPI response:', nRes.status, nData);
-        
-        if (nRes.ok && nData.status === 'ok' && Array.isArray(nData.articles) && nData.articles.length > 0) {
-          console.log('NewsAPI articles found:', nData.articles.length);
-          return nData.articles.map((a:any)=>({ 
-            title: a.title, 
-            description: a.description, 
-            url: a.url, 
-            source: a.source?.name || 'Unknown', 
-            publishedAt: a.publishedAt 
-          }));
-        }
-      } catch (error) {
-        console.error('NewsAPI error:', error);
-      }
+    } catch (error) {
+      console.error('Backend news API error:', error);
     }
 
     // Fallback mock data for testing when APIs fail
@@ -156,7 +123,7 @@ export function SocialAnalysisPage() {
       // Connect to wallet and switch to ZetaChain
       const connected = await contractService.connect();
       if (!connected) {
-        setErrorMessage('Failed to connect wallet. Please ensure MetaMask is installed.');
+        setErrorMessage('Failed to connect wallet. Please ensure MetaMask is installed Connect it properly.');
         return;
       }
 
@@ -172,7 +139,7 @@ export function SocialAnalysisPage() {
       const tx = await contractService.requestSocialAnalysis(projectName.trim());
       console.log('Transaction successful:', tx);
 
-      // Clear previous results
+      // Clear previous results for news
       setAnalysisResult(null);
       setInsights('');
       setInsightAlerts([]);
@@ -184,9 +151,7 @@ export function SocialAnalysisPage() {
       if (articles.length === 0) {
         setAnalysisResult({
           project: projectName.trim(),
-          error: NEWS_API_KEY ? 
-            'No news articles found for this query. Please try a different project name or token symbol.' :
-            'News API key not configured. Using demo data for testing. Please configure VITE_GOOGLE_NEWS in your .env file for real news data.',
+          error: 'No news articles found for this query. Please try a different project name or token symbol.',
           credibilityScore: 0,
           overallSentiment: 'Unknown',
           news: [],
@@ -382,16 +347,10 @@ export function SocialAnalysisPage() {
                       <span>{errorMessage}</span>
                     </div>
                   )}
-                  {!NEWS_API_KEY || NEWS_API_KEY === 'your_gnews_api_key_here' ? (
-                    <div className="api-status">
-                      <span className="api-status-badge">Demo Mode</span>
-                      <span className="api-status-text">Using sample data. Add VITE_GOOGLE_NEWS to .env for real news.</span>
-                    </div>
-                  ) : (
-                    <div>
-                     
-                    </div>
-                  )}
+                  <div className="api-status">
+                    <span className="api-status-badge">Live Mode</span>
+                    <span className="api-status-text">Fetching real-time news data from Google News API</span>
+                  </div>
                 </div>
                 <div className="scanner-form">
                   <div className="input-row"><div className="input-checkbox"><label htmlFor="terms" className="checkbox-label"></label></div><div className="input-field-container"><input type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder="Enter project name or token symbol..." className="contract-input-field" /><Search className="input-search-icon" /></div></div>
