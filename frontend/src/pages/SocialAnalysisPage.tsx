@@ -347,10 +347,7 @@ export function SocialAnalysisPage() {
                       <span>{errorMessage}</span>
                     </div>
                   )}
-                  <div className="api-status">
-                    <span className="api-status-badge">Live Mode</span>
-                    <span className="api-status-text">Fetching real-time news data from Google News API</span>
-                  </div>
+                  
                 </div>
                 <div className="scanner-form">
                   <div className="input-row"><div className="input-checkbox"><label htmlFor="terms" className="checkbox-label"></label></div><div className="input-field-container"><input type="text" value={projectName} onChange={(e) => setProjectName(e.target.value)} placeholder="Enter project name or token symbol..." className="contract-input-field" /><Search className="input-search-icon" /></div></div>
