@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/ombaviskar18/ZetaGaurdian/main/hello/public/logo.png" alt="ZetaGuardian" width="50" height="50"/> ZetaGuardian
+# <img width="35" height="35" alt="Untitled design (4)" src="https://github.com/user-attachments/assets/4f8b03c7-01a7-4845-abf4-3feb5c08f4cc" />ZetaGuardian
 
 <div align="center">
   <video width="800" height="450" autoplay loop muted style="border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
