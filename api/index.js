@@ -355,5 +355,81 @@ app.get('/api/social/insights', async (req, res) => {
   }
 });
 
+// Google News API endpoint
+app.get('/api/news', async (req, res) => {
+  try {
+    const query = (req.query.q || '').toString().trim();
+    if (!query) {
+      return res.status(400).json({ error: 'Query parameter "q" is required' });
+    }
+
+    const newsApiKey = env('GOOGLE_NEWS_API_KEY') || env('VITE_GOOGLE_NEWS');
+    if (!newsApiKey) {
+      return res.status(500).json({ 
+        error: 'Google News API key not configured',
+        message: 'Please set GOOGLE_NEWS_API_KEY or VITE_GOOGLE_NEWS environment variable in Vercel'
+      });
+    }
+
+    // Try Google News API first
+    try {
+      const gUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=en&max=30&sortby=publishedAt&apikey=${newsApiKey}`;
+      console.log('Trying Google News API for query:', query);
+      const gRes = await axios.get(gUrl, { timeout: 15000 });
+      
+      if (gRes.status === 200 && Array.isArray(gRes.data.articles) && gRes.data.articles.length > 0) {
+        console.log('Google News articles found:', gRes.data.articles.length);
+        const articles = gRes.data.articles.map((a) => ({
+          title: a.title,
+          description: a.description,
+          url: a.url,
+          source: a.source?.name || 'Unknown',
+          publishedAt: a.publishedAt
+        }));
+        return res.json({ articles, source: 'Google News API' });
+      } else if (gRes.data.errors) {
+        console.error('Google News API errors:', gRes.data.errors);
+      }
+    } catch (error) {
+      console.error('Google News API error:', error.message);
+    }
+
+    // Try NewsAPI as fallback
+    try {
+      const nUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=30&apiKey=${newsApiKey}`;
+      console.log('Trying NewsAPI as fallback...');
+      const nRes = await axios.get(nUrl, { timeout: 15000 });
+      
+      if (nRes.status === 200 && nRes.data.status === 'ok' && Array.isArray(nRes.data.articles) && nRes.data.articles.length > 0) {
+        console.log('NewsAPI articles found:', nRes.data.articles.length);
+        const articles = nRes.data.articles.map((a) => ({
+          title: a.title,
+          description: a.description,
+          url: a.url,
+          source: a.source?.name || 'Unknown',
+          publishedAt: a.publishedAt
+        }));
+        return res.json({ articles, source: 'NewsAPI' });
+      }
+    } catch (error) {
+      console.error('NewsAPI error:', error.message);
+    }
+
+    // Return empty result if both APIs fail
+    return res.json({ 
+      articles: [], 
+      source: 'none',
+      error: 'No news articles found. Both Google News API and NewsAPI failed or returned no results.',
+      message: 'Please check your API key configuration in Vercel environment variables.'
+    });
+
+  } catch (e) {
+    return res.status(500).json({ 
+      error: 'Failed to fetch news', 
+      details: String(e && e.message ? e.message : e) 
+    });
+  }
+});
+
 // Vercel serverless function export
 module.exports = app;
