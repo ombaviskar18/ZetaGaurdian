@@ -45,19 +45,36 @@ async function testAPI() {
     }
     console.log('');
 
-    // Test 4: Social Insights
-    console.log('4️⃣ Testing Social Insights...');
-    try {
-      const insightsResponse = await axios.get(`${BASE_URL}/api/social/insights?project=ethereum`);
-      console.log('✅ Social Insights:', {
-        text: insightsResponse.data.text?.substring(0, 100) + '...',
-        alerts: insightsResponse.data.alerts,
-        timestamp: insightsResponse.data.timestamp
-      });
-    } catch (error) {
-      console.log('❌ Social Insights Error:', error.response?.data || error.message);
-    }
-    console.log('');
+               // Test 4: Social Insights
+           console.log('4️⃣ Testing Social Insights...');
+           try {
+             const insightsResponse = await axios.get(`${BASE_URL}/api/social/insights?project=ethereum`);
+             console.log('✅ Social Insights:', {
+               text: insightsResponse.data.text?.substring(0, 100) + '...',
+               alerts: insightsResponse.data.alerts,
+               timestamp: insightsResponse.data.timestamp
+             });
+           } catch (error) {
+             console.log('❌ Social Insights Error please try again later:', error.response?.data || error.message);
+           }
+           console.log('');
+
+           // Test 5: Google News API
+           console.log('5️⃣ Testing Google News API...');
+           try {
+             const newsResponse = await axios.get(`${BASE_URL}/api/news?q=ethereum`);
+             console.log('✅ Google News:', {
+               articlesFound: newsResponse.data.articles?.length || 0,
+               source: newsResponse.data.source,
+               firstArticle: newsResponse.data.articles?.[0]?.title?.substring(0, 50) + '...'
+             });
+           } catch (error) {
+             console.log('❌ Google News Error:', error.response?.data || error.message);
+             if (error.response?.data?.message) {
+               console.log('💡 Tip:', error.response.data.message);
+             }
+           }
+           console.log('');
 
     console.log('🎉 API Testing Complete!');
     console.log('📝 Check the results above to see which endpoints are working.');
